@@ -7,7 +7,6 @@ You need [Pop CLI](https://github.com/r0gue-io/pop-cli) installed for this to wo
 ```
  cargo install --git https://github.com/brunopgalvao/polkadot
  alias .='polkadot'
- source ~/.zshrc
 ```
 
 ### Run Polkadot Relay chain in 3 seconds:
