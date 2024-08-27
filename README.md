@@ -15,3 +15,10 @@ Run Polkadot Relay chain in 3 seconds:
 ```
 .
 ```
+
+OR
+
+Run all other Pop CLI commands
+```
+. --help
+```
