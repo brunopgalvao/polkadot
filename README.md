@@ -7,7 +7,8 @@ Setup:
 ```
 git clone https://github.com/brunopgalvao/polkadot
 cd polkadot
-cargo build
+cargo run --release --bin setup
+source ~/.zshrc
 ```
 
 Run Polkadot Relay chain in 3 seconds:
