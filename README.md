@@ -1,6 +1,9 @@
-# polkadot
+<img height="70px" alt="Polkadot SDK Logo" src="https://github.com/paritytech/polkadot-sdk/raw/master/docs/images/Polkadot_Logo_Horizontal_Pink_White.png#gh-dark-mode-only"/>
+<img height="70px" alt="Polkadot SDK Logo" src="https://github.com/paritytech/polkadot-sdk/raw/master/docs/images/Polkadot_Logo_Horizontal_Pink_Black.png#gh-light-mode-only"/>
+
 For a Polkadot-centric world
-- run Polkadot in 3 seconds or `else`
+- run [Polkadot](https://polkadot.network) in 3 seconds or `else`
+
 > Disclaimer: Use this at your own prerogative
 
 You need [Pop CLI](https://github.com/r0gue-io/pop-cli) installed for this to work.
