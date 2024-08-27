@@ -40,16 +40,10 @@ validator = true
     };
 
     // Run the command
-    let status = Command::new(command)
+    Command::new(command)
         .args(&command_args)
         .status()
         .expect("Failed to execute command");
-
-    if status.success() {
-        println!("Command executed successfully.");
-    } else {
-        eprintln!("Command failed to execute.");
-    }
 
     // Run the setup script if requested
     if args.contains(&"setup".to_string()) {
