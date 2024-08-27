@@ -5,10 +5,9 @@ You need [Pop CLI](https://github.com/r0gue-io/pop-cli) installed for this to wo
 
 Setup:
 ```
-git clone https://github.com/brunopgalvao/polkadot
-cd polkadot
-cargo run --release --bin setup
-source ~/.zshrc
+ cargo install --git https://github.com/brunopgalvao/polkadot
+ alias .='polkadot'
+ source ~/.zshrc
 ```
 
 Run Polkadot Relay chain in 3 seconds:
