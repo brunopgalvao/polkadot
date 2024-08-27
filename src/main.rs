@@ -25,8 +25,6 @@ validator = true
         // Create and write to the network.toml file
         fs::write(network_toml_path, network_toml_content).expect("Failed to create network.toml file");
         println!("Created default network.toml file.");
-    } else {
-        println!("network.toml file already exists, skipping creation.");
     }
 
     // Step 2: Handle command-line arguments and run the `pop` command
