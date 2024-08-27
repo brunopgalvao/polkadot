@@ -27,7 +27,7 @@ echo "alias .='polkadot'" >> ~/.zshrc
 
 
 
-### Or else run all other Pop CLI commands
+### Or else run all other [Pop CLI](https://github.com/r0gue-io/pop-cli) commands
 ```sh
 . --help
 ```
