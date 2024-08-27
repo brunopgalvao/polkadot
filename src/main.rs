@@ -1,56 +1,49 @@
 use std::process::Command;
-use std::fs::OpenOptions;
-use std::io::{self, Write};
+use std::fs;
 use std::env;
 use std::path::Path;
 
 fn main() {
-    // Step 1: Add the alias
-    let alias_command = "alias .='./polkadot'";
+    // Step 1: Handle the creation of the network.toml file
+    let network_toml_content = r#"
+[relaychain]
+chain = "polkadot-local"
 
-    // Determine which shell is being used and select the correct config file
-    let shell = env::var("SHELL").unwrap_or_else(|_| "/bin/bash".to_string());
-    let config_file = if shell.contains("zsh") {
-        ".zshrc"
+[[relaychain.nodes]]
+name = "alice"
+validator = true
+
+[[relaychain.nodes]]
+name = "bob"
+validator = true
+"#;
+
+    let network_toml_path = Path::new("./network.toml");
+
+    // Check if the network.toml file exists
+    if !network_toml_path.exists() {
+        // Create and write to the network.toml file
+        fs::write(network_toml_path, network_toml_content).expect("Failed to create network.toml file");
+        println!("Created default network.toml file.");
     } else {
-        ".bashrc"
-    };
-
-    // Get the path to the home directory and config file
-    let home_dir = env::var("HOME").expect("Failed to get home directory");
-    let config_path = Path::new(&home_dir).join(config_file);
-
-    // Open the shell configuration file in append mode
-    let mut file = OpenOptions::new()
-        .write(true)
-        .append(true)
-        .open(&config_path)
-        .expect("Failed to open shell configuration file");
-
-    // Write the alias command to the file
-    writeln!(file, "{}", alias_command).expect("Failed to write alias to file");
-
-    println!("Alias added to {}", config_file);
-
-    // Source the updated configuration file to apply the alias immediately
-    let status = Command::new("sh")
-        .arg("-c")
-        .arg(format!("source {}", config_path.to_str().unwrap()))
-        .status()
-        .expect("Failed to source shell configuration file");
-
-    if status.success() {
-        println!("Alias applied successfully. You can now run your script with `.`.");
-    } else {
-        eprintln!("Failed to apply the alias immediately. Please restart your terminal.");
+        println!("network.toml file already exists, skipping creation.");
     }
 
-    // Step 2: Run the command `pop up parachain -f ./network.toml`
-    let command = "pop";
-    let args = vec!["up", "parachain", "-f", "./network.toml"];
+    // Step 2: Handle command-line arguments and run the `pop` command
+    let args: Vec<String> = env::args().collect();
 
+    // If no additional arguments are provided, use the default command
+    let (command, command_args) = if args.len() == 1 {
+        ("pop", vec!["up", "parachain", "-f", "./network.toml"])
+    } else {
+        // Pass the provided arguments directly to the `pop` command
+        let cmd_args: Vec<&str> = args[1..].iter().map(|s| s.as_str()).collect();
+        ("pop", cmd_args)
+    };
+
+    // Run the command
     let status = Command::new(command)
-        .args(&args)
+        .args(&command_args)
         .status()
         .expect("Failed to execute command");
 
@@ -60,8 +53,15 @@ fn main() {
         eprintln!("Command failed to execute.");
     }
 
-    // Optional: Wait for user input before closing (if running in an environment that closes quickly)
-    print!("Press Enter to exit...");
-    io::stdout().flush().unwrap();
-    io::stdin().read_line(&mut String::new()).unwrap();
+    // Run the setup script if requested
+    if args.contains(&"setup".to_string()) {
+        let setup_status = Command::new("cargo")
+            .args(&["run", "--release", "--", "setup"])
+            .status()
+            .expect("Failed to run the setup script");
+
+        if !setup_status.success() {
+            eprintln!("Setup script failed.");
+        }
+    }
 }
