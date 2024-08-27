@@ -18,7 +18,7 @@ cargo install --git https://github.com/brunopgalvao/polkadot
 echo "alias .='polkadot'" >> ~/.zshrc
 ```
 
-### Run Polkadot Relay chain in 3 seconds:
+### Run Polkadot Relay chain in 3 seconds
 ```sh
 .
 ```
