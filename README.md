@@ -1,6 +1,8 @@
 # polkadot
+For a Polkadot-centric world
+- run Polkadot in 3 seconds or `else`
 > Disclaimer: Use this at your own prerogative
-##
+
 You need [Pop CLI](https://github.com/r0gue-io/pop-cli) installed for this to work.
 ```sh
 pop --version
