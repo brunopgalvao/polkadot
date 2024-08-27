@@ -14,8 +14,8 @@ pop-cli 0.3.0
 
 ### Setup
 ```sh
- cargo install --git https://github.com/brunopgalvao/polkadot
- alias .='polkadot'
+cargo install --git https://github.com/brunopgalvao/polkadot
+echo "alias .='polkadot'" >> ~/.zshrc
 ```
 
 ### Run Polkadot Relay chain in 3 seconds:
